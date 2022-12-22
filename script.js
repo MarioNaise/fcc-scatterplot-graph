@@ -34,7 +34,7 @@
       .text((d)=>d)
 
     const yearsDate = dataset.map((item)=>{
-      return new Date(item.Year + "-01-01");
+      return new Date(item.Year.toString());
     });
     
     const timeData = dataset.map((item)=>{
@@ -79,25 +79,25 @@
       .style("opacity", "0.5")
       .attr("stroke", "black")
       .on("mouseover", (e, d)=>{
-        const year = new Date(d.Year+"-01-01");
+        const year = new Date(d.Year.toString());
         const time = d.Time;
 
         tooltip
         .attr("data-year", year)
         .attr("data-gdp", d[1])
         .style("display", "block")
-        .style("left", `${e.offsetX + 10}px`)
-        .style("top", `${e.offsetY + 10}px`)
+        .style("left", `${e.pageX}px`)
+        .style("top", `${e.pageY}px`)
         .html(
           `
-            <p>${time}/${year}</p>
+            <p>Time: ${time} </p>
+            <p>Year: ${year.toLocaleDateString()} </p>
           `
         )
         
       })
       .on("mouseout", (e, d)=>{
-          tooltip
-          .style("display", "none")
+          tooltip.style("display", "none")
           })
     
   }
