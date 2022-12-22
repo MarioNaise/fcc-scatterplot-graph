@@ -50,6 +50,23 @@
        .attr("transform", "translate(" + padding + ",0)")
        .call(yAxis)
        .attr("id", "y-axis");
+
+    svg.selectAll("circle")
+      .data(dataset)
+      .enter()
+      .append("circle")
+      .attr("cx", (d, i) => {
+        return xScale(yearsDate[i]);
+      })
+      .attr("cy", (d, i) => yScale(timeData[i]))
+      .attr("r", 10)
+      .attr("class", "dot")
+      .attr("data-xvalue", (d, i)=>yearsDate[i])
+      .attr("data-yvalue", (d, i)=>timeData[i])
+      .attr("fill",(d)=> d.Doping !== "" ? "blue" : "orange")
+      .style("opacity", "0.5")
+      .attr("stroke", "black")
+    
     
   }
 
