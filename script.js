@@ -9,7 +9,6 @@
 
   const renderData = async () => {
     const dataset = await getData();
-    console.log(dataset)
     const w = 1000;
     const h = 700;
     const padding = 100;
@@ -19,6 +18,11 @@
       .attr("width", w)
       .attr("height", h)
 
+    const tooltip = d3
+      .select("main")
+      .append("div")
+      .attr("id", "tooltip")
+
     const yearsDate = dataset.map((item)=>{
       return new Date(item.Year + "-01-01");
     });
@@ -27,8 +31,6 @@
       let timeArr = item.Time.split(":");
       return parseInt(timeArr[0]) + parseFloat((1 / 60 ) * timeArr[1]);
     });
-
-    console.log(d3.max(timeData))
 
     const xScale = d3.scaleTime()
       .domain([d3.min(yearsDate), d3.max(yearsDate)])
@@ -61,12 +63,32 @@
       .attr("cy", (d, i) => yScale(timeData[i]))
       .attr("r", 10)
       .attr("class", "dot")
-      .attr("data-xvalue", (d, i)=>yearsDate[i])
+      .attr("data-xvalue", (d, i)=> yearsDate[i])
       .attr("data-yvalue", (d, i)=>timeData[i])
       .attr("fill",(d)=> d.Doping !== "" ? "blue" : "orange")
       .style("opacity", "0.5")
       .attr("stroke", "black")
-    
+      .on("mouseover", (e, d)=>{
+        const year = new Date(d.Year+"-01-01");
+        const time = d.Time;
+
+        tooltip
+        .attr("data-year", year)
+        .attr("data-gdp", d[1])
+        .style("display", "block")
+        .style("left", `${e.offsetX + 10}px`)
+        .style("top", `${e.offsetY + 10}px`)
+        .html(
+          `
+            <p>${time}/${year}</p>
+          `
+        )
+        
+      })
+      .on("mouseout", (e, d)=>{
+          tooltip
+          .style("display", "none")
+          })
     
   }
 

@@ -26,3 +26,14 @@ p{
   border-radius: 1rem;
   box-shadow: 10px 10px 0px 2px rgba(0,0,0,0.75);
 }
+
+#tooltip{
+  width: 150px;
+  height: 100px;
+  background-color: rgba(122,168,214,.5);
+  position: absolute;
+  bottom: 100px;
+  color: white;
+  outline: 1px solid black;
+  display: none;
+}
