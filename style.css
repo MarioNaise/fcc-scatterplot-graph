@@ -37,3 +37,9 @@ p{
   outline: 1px solid black;
   display: none;
 }
+
+#legend{
+  position: absolute;
+  top:40%;
+  right: 1rem;
+}

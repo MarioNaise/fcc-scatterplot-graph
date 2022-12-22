@@ -23,6 +23,16 @@
       .append("div")
       .attr("id", "tooltip")
 
+    const legend = d3
+      .select("main")
+      .append("div")
+      .attr("id", "legend")
+      .selectAll("p")
+      .data(["No doping allegations 🔵","Riders with doping allegations 🟠"])
+      .enter()
+      .append("p")
+      .text((d)=>d)
+
     const yearsDate = dataset.map((item)=>{
       return new Date(item.Year + "-01-01");
     });
