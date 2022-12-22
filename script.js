@@ -13,6 +13,11 @@
     const w = 1000;
     const h = 700;
     const padding = 50;
+
+    const svg = d3.select("main")
+      .append("svg")
+      .attr("width", w)
+      .attr("height", h)
   }
 
   renderData();
