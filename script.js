@@ -19,7 +19,7 @@
       .attr("height", h)
 
     const tooltip = d3
-      .select("main")
+      .select("body")
       .append("div")
       .attr("id", "tooltip")
 
@@ -81,13 +81,12 @@
       .on("mouseover", (e, d)=>{
         const year = new Date(d.Year.toString());
         const time = d.Time;
-
         tooltip
         .attr("data-year", year)
         .attr("data-gdp", d[1])
         .style("display", "block")
-        .style("left", `${e.pageX}px`)
-        .style("top", `${e.pageY}px`)
+        .style("left", `${e.pageX + 10}px`)
+        .style("top", `${e.pageY + 10}px`)
         .html(
           `
             <p>Time: ${time} </p>
