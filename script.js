@@ -8,10 +8,20 @@
   }
 
   const renderData = async () => {
+    
     const dataset = await getData();
     const w = 1000;
     const h = 700;
     const padding = 100;
+    const yearsDate = dataset.map((item)=>{
+      return new Date(item.Year.toString());
+    });
+    
+    const timeData = dataset.map((item)=>{      
+      const timeArr = item.Time.split(":");
+      time = new Date(1970, 0, 1, 0, timeArr[0],   timeArr[1]);
+      return time;
+    });
 
     const svg = d3.select("main")
       .append("svg")
@@ -33,14 +43,6 @@
       .append("p")
       .text((d)=>d)
 
-    const yearsDate = dataset.map((item)=>{
-      return new Date(item.Year.toString());
-    });
-    
-    const timeData = dataset.map((item)=>{
-      let timeArr = item.Time.split(":");
-      return parseInt(timeArr[0]) + parseFloat((1 / 60 ) * timeArr[1]);
-    });
 
     const xScale = d3.scaleTime()
       .domain([d3.min(yearsDate), d3.max(yearsDate)])
@@ -50,8 +52,10 @@
       .domain([d3.max(timeData), d3.min(timeData)])
       .range([h - padding,padding]);
 
+    const timeFormat = d3.timeFormat('%M:%S');
     const xAxis = d3.axisBottom(xScale);
-    const yAxis = d3.axisLeft(yScale);
+    const yAxis = d3.axisLeft(yScale)
+      .tickFormat(timeFormat);
     
     svg.append("g")
        .attr("transform", "translate(0," + (h - padding) + ")")
@@ -100,6 +104,7 @@
           })
     
   }
+  
 
 
   renderData();
