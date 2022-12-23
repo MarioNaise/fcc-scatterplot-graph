@@ -19,7 +19,7 @@
     
     const timeData = dataset.map((item)=>{      
       const timeArr = item.Time.split(":");
-      time = new Date(1970, 0, 1, 0, timeArr[0],   timeArr[1]);
+      const time = new Date(1970, 0, 1, 0, timeArr[0],   timeArr[1]);
       return time;
     });
 
