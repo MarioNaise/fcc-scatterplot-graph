@@ -28,11 +28,14 @@ p{
 }
 
 #tooltip{
-  background-color: rgba(122,168,214,.9);
+  background-color: rgba(50,50,50 ,.7);
   position: absolute;
   color: white;
-  outline: 1px solid black;
+  border-radius: 5px;
   display: none;
+}
+#tooltip p{
+  margin: 1rem;
 }
 
 #legend{
